@@ -6,6 +6,8 @@ qmk_dir=$(cd "${cur_dir}/../qmk_firmware"; pwd)
 
 set -x
 
+ln -sfn ${cur_dir}/user \
+        ${qmk_dir}/users/rschenk
 
 ln -sfn ${cur_dir}/planck \
         ${qmk_dir}/keyboards/planck/keymaps/rschenk

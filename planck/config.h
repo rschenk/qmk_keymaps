@@ -1,34 +1,5 @@
 #pragma once
 
-#define TAPPING_TERM 190
-
-/*
- * Essential home row mod configs.
- * see: https://precondition.github.io/home-row-mods
- */
-// Prevent normal rollover on alphas from accidentally triggering home row mods.
-#define IGNORE_MOD_TAP_INTERRUPT
-
-// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
-
-// Allow some nested taps to be considered holds
-#define PERMISSIVE_HOLD_PER_KEY
-/*
-* Custom home row mod configs
-*/
-// Allow timing of each key to be customized
-#define TAPPING_TERM_PER_KEY
-
-#define TAPPING_TERM_OFFSET__SHIFT -15
-#define TAPPING_TERM_OFFSET__CTRL 20
-#define TAPPING_TERM_OFFSET__SPACE 85
-
-/*
-* End home row mod config
-*/
-
-#define CAPS_WORD_IDLE_TIMEOUT 5000  // Turn off Caps Word after 5 seconds.
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)

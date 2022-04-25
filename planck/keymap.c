@@ -16,9 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
-#include "features/caps_word.h"
-#include "features/achordion.h"
-
+#include "rschenk.h"
 
 enum planck_layers {
   _QWERTY,
@@ -46,32 +44,6 @@ enum planck_keycodes {
 #define CMD_BSL LCMD(KC_BSLASH)
 #define CMD_0   LCMD(KC_0)
 #define CMD_1   LCMD(KC_1)
-
-/* Home row mods for Qwerty layer */
-// Left-hand home row mods
-#define CTL_A LCTL_T(KC_A)
-#define ALT_S LALT_T(KC_S)
-#define GUI_D LGUI_T(KC_D)
-#define SFT_F LSFT_T(KC_F)
-
-// Right-hand home row mods
-#define SFT_J RSFT_T(KC_J)
-#define GUI_K RGUI_T(KC_K)
-#define ALT_L LALT_T(KC_L)
-#define CTL_SCLN RCTL_T(KC_SCLN)
-
-/* Home row mods for Colemak layer */
-// Left-hand home row mods
-#define CTL_A LCTL_T(KC_A)
-#define ALT_R LALT_T(KC_R)
-#define GUI_S LGUI_T(KC_S)
-#define SHFT_T LSFT_T(KC_T)
-
-// Right-hand home row mods
-#define SFT_N RSFT_T(KC_N)
-#define GUI_E RGUI_T(KC_E)
-#define ALT_I LALT_T(KC_I)
-#define CTL_O RCTL_T(KC_O)
 
 /* Tapdance declarations */
 typedef enum {
@@ -244,10 +216,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_achordion(keycode, record)) { return false; }
-  if (!process_caps_word(keycode, record)) { return false; }
-
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -290,30 +259,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
-}
-
-/* Callback for Caps-Word, which I am overriding to make semicolon not break
- * the caps-word. The reason for this is how MacOS handles Colemak-DH, the
- * keyboard thinks it's in QWERTY mode, and "o" is ";"
- */
-bool caps_word_press_user(uint16_t keycode) {
-  switch (keycode) {
-    // Keycodes that continue Caps Word, with shift applied.
-    case KC_A ... KC_Z:
-    case KC_SCLN:
-      add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to the next key.
-      return true;
-
-    // Keycodes that continue Caps Word, without shifting.
-    case KC_1 ... KC_0:
-    case KC_BSPC:
-    case KC_MINS:
-    case KC_UNDS:
-      return true;
-
-    default:
-      return false;  // Deactivate Caps Word.
-  }
 }
 
 bool muse_mode = false;
@@ -375,9 +320,7 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     return true;
 }
 
-void matrix_scan_user(void) {
-  achordion_task();
-  caps_word_task();
+void matrix_scan_keymap(void) {
 #ifdef AUDIO_ENABLE
     if (muse_mode) {
         if (muse_counter == 0) {
@@ -452,66 +395,15 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 }
 
-/*
- * Customize Achordion
- */
-bool achordion_chord(uint16_t tap_hold_keycode,
-                     keyrecord_t* tap_hold_record,
-                     uint16_t other_keycode,
-                     keyrecord_t* other_record) {
-
-  // Allow same-hand holds when the other key is in the rows below the alpha
-  bool other_in_bottom_row = other_record->event.key.row % (MATRIX_ROWS / 2) >= 3;
-  if (other_in_bottom_row) { return true; }
-
-  return achordion_opposite_hands(tap_hold_record, other_record);
-}
-
-/*
- * Reduce Achordion timeout for allowing same-hand holds
- * and also optionally disable Archordion entirely for some keys
- */
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+uint16_t achordion_timeout_keymap(uint16_t tap_hold_keycode) {
   switch (tap_hold_keycode) {
     case SP_NAV:
       return 0;  // Bypass Achordion for these keys.
   }
 
-  return 500; // Otherwise use this timeout
+  return ACHORDION_TIMEOUT; // Otherwise use this timeout
 }
 
-/*
- * Eagerly apply achordion modifiers on the left hand
- */
-bool achordion_eager_mod(uint8_t mod) {
-  switch (mod) {
-    case MOD_LSFT:
-    case MOD_RSFT:
-    case MOD_LCTL:
-    case MOD_RCTL:
-    case MOD_LALT:
-    case MOD_LGUI:
-      return true;  // Eagerly apply Shift, Ctrl, and all left hand mods.
-
-    default:
-      return false;
-  }
-}
-
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case SFT_F:
-    case SFT_N:
-    case SFT_J:
-    case SHFT_T:
-      // For shift keys, immediately select the hold action when another key is tapped.
-      return true;
-
-    default:
-      // Do not select the hold action when another key is tapped.
-      return false;
-  }
-}
 
 /* Return an integer that corresponds to what kind of tap dance should be executed.
  *
@@ -668,17 +560,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [FAT_ARROW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, eq_finished, eq_reset),
 };
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_tapping_term_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case SFT_F:
-        case SFT_J:
-        case SHFT_T:
-        case SFT_N:
-            return TAPPING_TERM + TAPPING_TERM_OFFSET__SHIFT;
-        case CTL_O:
-        case CTL_SCLN:
-        case CTL_A:
-            return TAPPING_TERM + TAPPING_TERM_OFFSET__CTRL;
         case SP_NAV:
             return TAPPING_TERM + TAPPING_TERM_OFFSET__SPACE;
         default:
