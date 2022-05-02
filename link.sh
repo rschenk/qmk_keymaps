@@ -15,5 +15,8 @@ ln -sfn ${cur_dir}/planck \
 ln -sfn ${cur_dir}/planck-miryoku \
         ${qmk_dir}/keyboards/planck/keymaps/rschenk-miryoku
 
+ln -sfn ${cur_dir}/fifi \
+        ${qmk_dir}/keyboards/crkbd/keymaps/rschenk
+
 ln -sfn ${cur_dir}/cospad \
         ${qmk_dir}/keyboards/kprepublic/cospad/keymaps/rschenk
