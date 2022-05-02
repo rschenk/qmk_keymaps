@@ -97,6 +97,11 @@ bool achordion_eager_mod(uint8_t mod) {
 /*
  * Permissive hold only on shift keys
  */
+__attribute__((weak)) bool get_permissive_hold_keymap(uint16_t keycode, keyrecord_t *record) {
+  // Do not select the hold action when another key is tapped.
+  return false;
+}
+
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SFT_F:
@@ -107,8 +112,7 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
       return true;
 
     default:
-      // Do not select the hold action when another key is tapped.
-      return false;
+      return get_permissive_hold_keymap(keycode, record);
   }
 }
 
@@ -120,16 +124,17 @@ __attribute__((weak)) uint16_t get_tapping_term_keymap(uint16_t keycode, keyreco
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case SFT_F:
-        case SFT_J:
-        case SHFT_T:
-        case SFT_N:
-            return TAPPING_TERM + TAPPING_TERM_OFFSET__SHIFT;
-        case CTL_O:
-        case CTL_SCLN:
-        case CTL_A:
-        default:
-            return get_tapping_term_keymap(keycode, record);
-    }
+  switch (keycode) {
+    case SFT_F:
+    case SFT_J:
+    case SHFT_T:
+    case SFT_N:
+      return TAPPING_TERM + TAPPING_TERM_OFFSET__SHIFT;
+    case CTL_O:
+    case CTL_SCLN:
+    case CTL_A:
+      return TAPPING_TERM + TAPPING_TERM_OFFSET__CTRL;
+    default:
+      return get_tapping_term_keymap(keycode, record);
+  }
 }

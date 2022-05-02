@@ -2,6 +2,11 @@
 /* Home row mod configs.
  * see: https://precondition.github.io/home-row-mods
  */
+#undef TAPPING_TERM
+#undef IGNORE_MOD_TAP_INTERRUPT
+#undef TAPPING_FORCE_HOLD
+#undef PERMISSIVE_HOLD_PER_KEY
+
 #define TAPPING_TERM 190
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD

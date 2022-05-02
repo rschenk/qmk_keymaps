@@ -1,6 +1,14 @@
 # The Default Planck Layout
 
 ## Backlights
+
+```
+LED physical location index
+    6 5 4 3
+       0
+    7 8 1 2
+```
+
 [docs](https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgblight)
 
 `RGBLIGHT_MODE_RAINBOW_SWIRL` is great
