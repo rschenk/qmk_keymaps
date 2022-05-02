@@ -36,7 +36,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_achordion(keycode, record)) { return false; }
   if (!process_caps_word(keycode, record)) { return false; }
 
+#ifdef USE_MIRYOKU_LAYOUT
+  return process_record_miryoku(keycode, record);
+#else
   return process_record_keymap(keycode, record);
+#endif
 }
 
 __attribute__((weak)) void matrix_scan_keymap(void) { }
@@ -73,7 +77,11 @@ __attribute__((weak)) uint16_t achordion_timeout_keymap(uint16_t tap_hold_keycod
 }
 
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+#ifdef USE_MIRYOKU_LAYOUT
+  return achordion_timeout_miryoku(tap_hold_keycode);
+#else
   return achordion_timeout_keymap(tap_hold_keycode);
+#endif
 }
 
 /*

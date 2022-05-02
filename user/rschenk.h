@@ -3,6 +3,7 @@
 
 #include "quantum.h"
 
+#include "miryoku.h"
 #include "features/caps_word.h"
 #include "features/achordion.h"
 
@@ -31,5 +32,11 @@
 #define GUI_E RGUI_T(KC_E)
 #define ALT_I LALT_T(KC_I)
 #define CTL_O RCTL_T(KC_O)
+
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+__attribute__((weak)) void matrix_scan_keymap(void);
+__attribute__((weak)) uint16_t achordion_timeout_keymap(uint16_t tap_hold_keycode);
+__attribute__((weak)) bool get_permissive_hold_keymap(uint16_t keycode, keyrecord_t *record);
+__attribute__((weak)) uint16_t get_tapping_term_keymap(uint16_t keycode, keyrecord_t *record);
 
 #endif

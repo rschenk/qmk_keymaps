@@ -1,4 +1,5 @@
 SRC += rschenk.c
+SRC += miryoku.c
 SRC += features/achordion.c
 SRC += features/caps_word.c
 
