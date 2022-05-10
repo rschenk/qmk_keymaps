@@ -20,107 +20,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include "rschenk.h"
 
-#ifdef OLED_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master()) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  }
-  return rotation;
+/* Per-layer LED effects
+ * .-----------.    .-----------.
+ * |  2  1  0  |    | 11 10  9  |
+ * |           |    |           |
+ * |  3  4  5  |    |  6  7  8  |
+ * '-----------'    '-----------'
+ */
+const rgblight_segment_t PROGMEM rgb_layer_left[] = RGBLIGHT_LAYER_SEGMENTS(
+//{ start index, number of leds to light, color }
+  {2, 1, 253, 255, 255}, {1, 1, 243, 255, 255}, {0, 1, 233, 255, 255},
+  {3, 1, 243, 255, 255}, {4, 1, 233, 255, 255}, {5, 1, 223, 255, 255}
+);
+const rgblight_segment_t PROGMEM rgb_layer_right[] = RGBLIGHT_LAYER_SEGMENTS(
+  {11, 1, 233, 255, 255}, {10, 1, 243, 255, 255}, {9, 1, 253, 255, 255},
+  { 6, 1, 223, 255, 255}, { 7, 1, 233, 255, 255}, {8, 1, 243, 255, 255}
+);
+const rgblight_segment_t PROGMEM rgb_layer_bottom[] = RGBLIGHT_LAYER_SEGMENTS(
+  {4, 4, 255, 255, 255},
+  {0, 1, 255, 255, 255},
+  {11, 1, 255, 255, 255}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    rgb_layer_right,
+    rgb_layer_left,
+    rgb_layer_bottom
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
 }
 
-#define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
+layer_state_t layer_state_set_user(layer_state_t state) {
+  bool right_active = layer_state_cmp(state, _NAV) ||
+                      layer_state_cmp(state, _MOUSE) ||
+                      layer_state_cmp(state, _MEDIA);
 
-void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
-    switch (layer_state) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
-            break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
-            break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
-            break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
-            break;
-    }
+  bool left_active = layer_state_cmp(state, _NUM) ||
+                     layer_state_cmp(state, _SYM) ||
+                     layer_state_cmp(state, _FUN);
+
+  bool bottom_active = layer_state_cmp(state, _BUTTON) ||
+                       caps_word_get();
+
+  rgblight_set_layer_state(0, right_active);
+  rgblight_set_layer_state(1, left_active);
+  rgblight_set_layer_state(2, bottom_active);
+  return state;
 }
 
-
-char keylog_str[24] = {};
-
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
-
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
+void caps_word_set_user(bool caps_word_active) {
+  rgblight_set_layer_state(2, caps_word_active);
 }
-
-void oled_render_keylog(void) {
-    oled_write(keylog_str, false);
-}
-
-void render_bootmagic_status(bool status) {
-    /* Show Ctrl-Gui Swap options */
-    static const char PROGMEM logo[][2][3] = {
-        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-    };
-    if (status) {
-        oled_write_ln_P(logo[0][0], false);
-        oled_write_ln_P(logo[0][1], false);
-    } else {
-        oled_write_ln_P(logo[1][0], false);
-        oled_write_ln_P(logo[1][1], false);
-    }
-}
-
-void oled_render_logo(void) {
-    static const char PROGMEM crkbd_logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        0};
-    oled_write_P(crkbd_logo, false);
-}
-
-bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        oled_render_layer_state();
-        oled_render_keylog();
-    } else {
-        oled_render_logo();
-    }
-    return false;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
-  }
-  return true;
-}
-#endif // OLED_ENABLE

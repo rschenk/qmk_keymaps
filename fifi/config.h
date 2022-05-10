@@ -34,19 +34,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_TERM 100
 
 #ifdef RGBLIGHT_ENABLE
-    #define RGBLIGHT_EFFECT_BREATHING
-    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    #define RGBLIGHT_EFFECT_SNAKE
-    #define RGBLIGHT_EFFECT_KNIGHT
-    #define RGBLIGHT_EFFECT_CHRISTMAS
-    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-    #define RGBLIGHT_EFFECT_RGB_TEST
-    #define RGBLIGHT_EFFECT_ALTERNATING
-    #define RGBLIGHT_EFFECT_TWINKLE
+    #undef RGBLED_NUM
+    #undef RGBLED_SPLIT
+    #define RGBLED_NUM 12
+    #define RGBLED_SPLIT { 6, 6 }
+    #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 11, 10, 9, 8, 7, 6 }
+    // .-----------.    .------------.
+    // |  2  1  0  |    |  6   7  8  |
+    // |           |    |            |
+    // |  3  4  5  |    | 11  10  9  |
+    // '-----------'    '------------'
+
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   /* enable _only_ rainbow swirl */
+    #define RGBLIGHT_SLEEP                  /* turn off LEDs when host sleeps */
+    #define RGBLIGHT_LAYERS                 /* per-layer LED effects */
+    #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
+    #define RGBLIGHT_VAL_STEP 17
+    #define RGBLIGHT_VAL_STEP 17
     #define RGBLIGHT_VAL_STEP 17
 #endif
 

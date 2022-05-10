@@ -53,9 +53,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
                      layer_state_cmp(state, _SYM) ||
                      layer_state_cmp(state, _FUN);
 
+  bool top_active = layer_state_cmp(state, _BUTTON) ||
+                    caps_word_get();
+
   rgblight_set_layer_state(0, right_active);
   rgblight_set_layer_state(1, left_active);
-  rgblight_set_layer_state(2, layer_state_cmp(state, _BUTTON));
+  rgblight_set_layer_state(2, top_active);
   return state;
 }
 
