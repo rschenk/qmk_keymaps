@@ -45,12 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // |  3  4  5  |    | 11  10  9  |
     // '-----------'    '------------'
 
-    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   /* enable _only_ rainbow swirl */
-    #define RGBLIGHT_SLEEP                  /* turn off LEDs when host sleeps */
-    #define RGBLIGHT_LAYERS                 /* per-layer LED effects */
-    #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
-
-    #define RGBLIGHT_LIMIT_VAL 120
+    #define RGBLIGHT_LIMIT_VAL 255 // 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17

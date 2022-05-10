@@ -21,7 +21,13 @@
 
 #define CAPS_WORD_IDLE_TIMEOUT 5000  // Turn off Caps Word after 5 seconds.
 
-#define RGBLIGHT_DEFAULT_HUE 220        // purple rain
+#ifdef RGBLIGHT_ENABLE
+  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   // enable _only_ rainbow swirl
+  #define RGBLIGHT_SLEEP                  // turn off LEDs when host sleeps
+  #define RGBLIGHT_LAYERS                 // per-layer LED effects
+  #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+  #define RGBLIGHT_DEFAULT_HUE 220        // purple rain
+#endif
 
 #ifdef USE_MIRYOKU_LAYOUT
 // copied from users/manna-harbour_miryoku/config.h

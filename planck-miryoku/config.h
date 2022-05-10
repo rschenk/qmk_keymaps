@@ -56,16 +56,6 @@ KC_NO, KC_NO, K32,   K33,   K34,   KC_NO, KC_NO, K35,   K36,   K37,   KC_NO, KC_
  *
  ***************************************************************************/
 
-/* LED Animations!
- * Check out quantum/rgblight.h for animation defs
-*/
-// #define RGBLIGHT_ANIMATIONS          /* enable all animations (can be big) */
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL   /* enable _only_ rainbow swirl */
-#define RGBLIGHT_SLEEP                  /* turn off LEDs when host sleeps */
-#define RGBLIGHT_LAYERS                 /* per-layer LED effects */
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
-#define RGBLIGHT_DEFAULT_HUE 220        /* purple rain */
-
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
