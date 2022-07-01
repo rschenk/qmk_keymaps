@@ -126,11 +126,6 @@ bool process_record_miryoku(uint16_t keycode, keyrecord_t *record) {
         unregister_code16(colon);
       }
       return false;
-    case CAPS_WORD:
-      if (record->event.pressed) {
-        caps_word_set(!caps_word_get());
-      }
-      return false;
   }
 
   return process_record_keymap(keycode, record);

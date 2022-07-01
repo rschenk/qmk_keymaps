@@ -17,7 +17,7 @@ enum layers { _BASE_Q, _BASE_C, _BUTTON, _MEDIA, _NAV, _MOUSE, _SYM, _NUM, _FUN 
 
 // Used to toggle between "qwerty" mode and Colemak-DH.
 // "Qwerty" for compatibility with Mac's OS-level implementation of Colemak
-enum meta_keycodes { QWERTY = SAFE_RANGE, COLEMAK, PASTE, SCLN, COLN, CAPS_WORD};
+enum meta_keycodes { QWERTY = SAFE_RANGE, COLEMAK, PASTE, SCLN, COLN };
 
 // Ryan Custom keycodes that are used in miryoku layout below
 #define ESC_MEDIA LT(_MEDIA, KC_ESC)

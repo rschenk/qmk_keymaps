@@ -34,7 +34,6 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_achordion(keycode, record)) { return false; }
-  if (!process_caps_word(keycode, record)) { return false; }
 
 #ifdef USE_MIRYOKU_LAYOUT
   return process_record_miryoku(keycode, record);
@@ -47,7 +46,6 @@ __attribute__((weak)) void matrix_scan_keymap(void) { }
 
 void matrix_scan_user(void) {
   achordion_task();
-  caps_word_task();
 
   matrix_scan_keymap();
 }

@@ -205,8 +205,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
-void caps_word_set_user(bool caps_word_active) {
-  rgblight_set_layer_state(3, caps_word_active);
+void caps_word_set_user(bool active) {
+  rgblight_set_layer_state(3, active);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {

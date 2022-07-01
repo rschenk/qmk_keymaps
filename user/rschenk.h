@@ -4,7 +4,6 @@
 #include "quantum.h"
 
 #include "miryoku.h"
-#include "features/caps_word.h"
 #include "features/achordion.h"
 
 /* Home row mods for Qwerty layer */

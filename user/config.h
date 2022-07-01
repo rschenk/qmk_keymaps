@@ -19,8 +19,6 @@
 
 #define ACHORDION_TIMEOUT 500
 
-#define CAPS_WORD_IDLE_TIMEOUT 5000  // Turn off Caps Word after 5 seconds.
-
 #ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   // enable _only_ rainbow swirl
   #define RGBLIGHT_SLEEP                  // turn off LEDs when host sleeps

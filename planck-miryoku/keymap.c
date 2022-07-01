@@ -54,7 +54,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
                      layer_state_cmp(state, _FUN);
 
   bool top_active = layer_state_cmp(state, _BUTTON) ||
-                    caps_word_get();
+                    is_caps_word_on();
 
   rgblight_set_layer_state(0, right_active);
   rgblight_set_layer_state(1, left_active);
@@ -62,6 +62,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-void caps_word_set_user(bool caps_word_active) {
-  rgblight_set_layer_state(2, caps_word_active);
+void caps_word_set_user(bool active) {
+  rgblight_set_layer_state(2, active);
 }
