@@ -153,7 +153,7 @@ uint16_t achordion_timeout_miryoku(uint16_t tap_hold_keycode) {
  * This is used for sending different keycodes when in "qwerty" mode vs colemak.
  */
 uint16_t default_layer_aware_keycode(uint8_t layer, uint16_t keycode_enabled, uint16_t keycode_disabled) {
-  return biton32(default_layer_state) == layer ? keycode_enabled : keycode_disabled;
+  return get_highest_layer(default_layer_state) == layer ? keycode_enabled : keycode_disabled;
 }
 
 #endif
