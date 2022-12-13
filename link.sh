@@ -9,12 +9,6 @@ set -x
 ln -sfn ${cur_dir}/user \
         ${qmk_dir}/users/rschenk
 
-ln -sfn ${cur_dir}/planck \
-        ${qmk_dir}/keyboards/planck/keymaps/rschenk
-
-ln -sfn ${cur_dir}/planck-miryoku \
-        ${qmk_dir}/keyboards/planck/keymaps/rschenk-miryoku
-
 ln -sfn ${cur_dir}/fifi \
         ${qmk_dir}/keyboards/crkbd/keymaps/rschenk
 
