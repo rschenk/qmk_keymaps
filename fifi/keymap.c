@@ -63,8 +63,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
                      layer_state_cmp(state, _SYM) ||
                      layer_state_cmp(state, _FUN);
 
-  bool bottom_active = layer_state_cmp(state, _BUTTON) ||
-                       is_caps_word_on();
+  bool bottom_active = is_caps_word_on();
 
   rgblight_set_layer_state(0, right_active);
   rgblight_set_layer_state(1, left_active);
