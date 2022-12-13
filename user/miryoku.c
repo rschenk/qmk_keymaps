@@ -27,24 +27,22 @@
 
 // This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-#include "keymap.h"
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE_Q] = LAYOUT_miryoku(
     KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_QUOT,
     CTL_A,             ALT_S,             GUI_D,             SFT_F,             KC_G,              KC_H,              SFT_J,             GUI_K,             ALT_L,             CTL_SCLN,
-    LT(_BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(_BUTTON, KC_SLSH),
+    KC_Z,              ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
     U_NP,              U_NP,              ESC_MEDIA,         SP_NAV,            TAB_MOUSE,         ENT_SYM,           BSP_NUM,           DEL_FUN,           U_NP,              U_NP
   ),
   [_BASE_C] = LAYOUT_miryoku(
     KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
     CTL_A,             ALT_R,             GUI_S,             SHFT_T,            KC_G,              KC_M,              SFT_N,             GUI_E,             ALT_I,             CTL_O,
-    LT(_BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    LT(_BUTTON, KC_SLSH),
+    KC_Z,              ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
     U_NP,              U_NP,              ESC_MEDIA,         SP_NAV,            TAB_MOUSE,         ENT_SYM,           BSP_NUM,           DEL_FUN,           U_NP,              U_NP
   ),
   [_NAV] = LAYOUT_miryoku(
     QK_BOOT, U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   PASTE,   U_CPY,   U_CUT,   U_UND,
-    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, CAPS_WORD,
+    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, CW_TOGG,
     U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_INS,
     U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_ENT,  KC_BSPC, KC_DEL,  U_NP,    U_NP
   ),
@@ -74,15 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_FUN] = LAYOUT_miryoku(
     KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, U_NA,    U_NA,    U_NA,    U_NA,    QK_BOOT,
-    KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK, U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
+    KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SCRL, U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
     KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
     U_NP,    U_NP,    KC_APP,  KC_SPC,  KC_TAB,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
-  ),
-  [_BUTTON] = LAYOUT_miryoku(
-    U_UND,   U_CUT,   U_CPY,   PASTE,   U_RDO,   U_RDO,   PASTE,   U_CPY,   U_CUT,   U_UND,
-    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_TRNS, KC_TRNS, KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
-    U_UND,   U_CUT,   U_CPY,   PASTE,   U_RDO,   U_RDO,   PASTE,   U_CPY,   U_CUT,   U_UND,
-    U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
   )
 };
 

@@ -13,7 +13,7 @@
  * around this, I have to check which base layer we're in before sending a
  * paste. Yikes.
  */
-enum layers { _BASE_Q, _BASE_C, _BUTTON, _MEDIA, _NAV, _MOUSE, _SYM, _NUM, _FUN };
+enum layers { _BASE_Q, _BASE_C, _MEDIA, _NAV, _MOUSE, _SYM, _NUM, _FUN };
 
 // Used to toggle between "qwerty" mode and Colemak-DH.
 // "Qwerty" for compatibility with Mac's OS-level implementation of Colemak
