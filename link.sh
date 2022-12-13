@@ -14,3 +14,6 @@ ln -sfn ${cur_dir}/fifi \
 
 ln -sfn ${cur_dir}/cospad \
         ${qmk_dir}/keyboards/kprepublic/cospad/keymaps/rschenk
+
+ln -sfn ${cur_dir}/egret \
+        ${qmk_dir}/keyboards/egret
