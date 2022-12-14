@@ -2,8 +2,8 @@ SRC += rschenk.c
 SRC += features/achordion.c
 
 # Fix after QMK Breaking Changes 2022 August 27: https://github.com/qmk/qmk_firmware/pull/17559/files
-ifdef USE_MIRYOKU_LAYOUT
-	INTROSPECTION_KEYMAP_C = miryoku.c
+ifdef USE_RMS36_LAYOUT
+	INTROSPECTION_KEYMAP_C = rms36.c
 endif
 
 DYNAMIC_TAPPING_TERM_ENABLE = yes

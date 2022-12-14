@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 
-#include "miryoku.h"
+#include "rms36.h"
 #include "features/achordion.h"
 
 /* Home row mods for Qwerty layer */
