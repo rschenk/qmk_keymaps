@@ -1,0 +1,6 @@
+//   name     result    chord keys
+SUBS(UI_RF_ARR, "=>", KC_U, KC_I)
+SUBS(IO_RS_ARR, "->", KC_I, KC_O)
+SUBS(ER_LF_ARR, "<=", KC_E, KC_R)
+SUBS(WE_LS_ARR, "<-", KC_W, KC_E)
+SUBS(CV_PIPE, "|> ", KC_C, KC_V)

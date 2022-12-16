@@ -1,4 +1,5 @@
 #include "rschenk.h"
+#include "g/keymap_combo.h"
 
 /* Callback for Caps-Word, which I am overriding to make semicolon not break
  * the caps-word. The reason for this is how MacOS handles Colemak-DH, the
