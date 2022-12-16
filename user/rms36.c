@@ -9,6 +9,7 @@
 #include QMK_KEYBOARD_H
 #include "rschenk.h"
 #include "rms36.h"
+#include "g/keymap_combo.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE_Q] = LAYOUT_rms36(
@@ -101,6 +102,29 @@ bool process_record_rms36(uint16_t keycode, keyrecord_t *record) {
 }
 
 /*
+ * Combos
+ */
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    switch (combo_index) {
+        case COLEMAK_RF_ARR:
+        case COLEMAK_RS_ARR:
+        case COLEMAK_LF_ARR:
+        case COLEMAK_LS_ARR:
+        case COLEMAK_PIPE:
+          return IS_LAYER_ON_STATE(default_layer_state, _BASE_C);
+
+        case QWERTY_RF_ARR:
+        case QWERTY_RS_ARR:
+        case QWERTY_LF_ARR:
+        case QWERTY_LS_ARR:
+        case QWERTY_PIPE:
+          return IS_LAYER_ON_STATE(default_layer_state, _BASE_Q);
+    }
+
+    return true;
+}
+
+/*
  * Achordion config
  */
 uint16_t achordion_timeout_rms36(uint16_t tap_hold_keycode) {
@@ -122,7 +146,7 @@ uint16_t achordion_timeout_rms36(uint16_t tap_hold_keycode) {
  * This is used for sending different keycodes when in "qwerty" mode vs colemak.
  */
 uint16_t default_layer_aware_keycode(uint8_t layer, uint16_t keycode_enabled, uint16_t keycode_disabled) {
-  return get_highest_layer(default_layer_state) == layer ? keycode_enabled : keycode_disabled;
+  return IS_LAYER_ON_STATE(default_layer_state, layer) ? keycode_enabled : keycode_disabled;
 }
 
 #endif
