@@ -7,3 +7,4 @@ OLED_DRIVER     = SSD1306
 LTO_ENABLE      = yes
 AUTO_SHIFT_ENABLE = no # Auto Shift
 USER_NAME := rschenk
+USE_RMS36_LAYOUT = yes

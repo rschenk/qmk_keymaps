@@ -12,3 +12,6 @@ SUBS(QWERTY_RS_ARR, "->", KC_I, KC_O)
 SUBS(QWERTY_LF_ARR, "<=", KC_E, KC_R)
 SUBS(QWERTY_LS_ARR, "<-", KC_W, KC_E)
 SUBS(QWERTY_PIPE, "|> ", KC_C, KC_V)
+
+// Combos that will work in either base layer
+SUBS(EEX_TAG, "<%=  %>" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT), KC_COMM, KC_DOT)
