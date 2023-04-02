@@ -111,6 +111,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case COLEMAK_LF_ARR:
         case COLEMAK_LS_ARR:
         case COLEMAK_PIPE:
+        case COLEMAK_ESC:
           return IS_LAYER_ON_STATE(default_layer_state, _BASE_C);
 
         case QWERTY_RF_ARR:
@@ -118,10 +119,23 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case QWERTY_LF_ARR:
         case QWERTY_LS_ARR:
         case QWERTY_PIPE:
+        case QWERTY_ESC:
           return IS_LAYER_ON_STATE(default_layer_state, _BASE_Q);
     }
 
     return true;
+}
+
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    // or with combo index, i.e. its name from enum.
+    switch (index) {
+      case COLEMAK_ESC:
+      case QWERTY_ESC:
+      case COMBO_CAPS_WORD:
+            return COMBO_TERM_SLOW;
+    }
+
+    return COMBO_TERM;
 }
 
 /*
