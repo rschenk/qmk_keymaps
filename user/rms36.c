@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUM] = LAYOUT_rms36(
     KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, XXXXXXX, XXXXXXX, COLEMAK, QWERTY,  QK_BOOT,
     SCLN,    KC_4,    KC_5,    KC_6,    KC_EQL,  XXXXXXX, KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, KC_DOT,  KC_SLSH,
              KC_DOT,  KC_0,    KC_MINS, XXXXXXX, XXXXXXX, XXXXXXX
   ),
   [_SYM] = LAYOUT_rms36(
@@ -111,7 +111,8 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case COLEMAK_LF_ARR:
         case COLEMAK_LS_ARR:
         case COLEMAK_PIPE:
-        case COLEMAK_ESC:
+        case COLEMAK_ESC_R:
+        case COLEMAK_ESC_L:
           return IS_LAYER_ON_STATE(default_layer_state, _BASE_C);
 
         case QWERTY_RF_ARR:
@@ -119,7 +120,8 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case QWERTY_LF_ARR:
         case QWERTY_LS_ARR:
         case QWERTY_PIPE:
-        case QWERTY_ESC:
+        case QWERTY_ESC_R:
+        case QWERTY_ESC_L:
           return IS_LAYER_ON_STATE(default_layer_state, _BASE_Q);
     }
 
@@ -129,8 +131,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // or with combo index, i.e. its name from enum.
     switch (index) {
-      case COLEMAK_ESC:
-      case QWERTY_ESC:
       case COMBO_CAPS_WORD:
             return COMBO_TERM_SLOW;
     }

@@ -5,6 +5,8 @@ SUBS(COLEMAK_RS_ARR, "->", KC_U, KC_Y)
 SUBS(COLEMAK_LF_ARR, "<=", KC_F, KC_P)
 SUBS(COLEMAK_LS_ARR, "<-", KC_W, KC_F)
 SUBS(COLEMAK_PIPE, "|> ", KC_C, KC_D)
+COMB(COLEMAK_ESC_R, KC_ESC, GUI_E, ALT_I)
+COMB(COLEMAK_ESC_L, KC_ESC, ALT_R, GUI_S)
 
 // "qwerty" layout (for mapping colemak in the OS)
 SUBS(QWERTY_RF_ARR, "=>", KC_U, KC_I)
@@ -12,11 +14,11 @@ SUBS(QWERTY_RS_ARR, "->", KC_I, KC_O)
 SUBS(QWERTY_LF_ARR, "<=", KC_E, KC_R)
 SUBS(QWERTY_LS_ARR, "<-", KC_W, KC_E)
 SUBS(QWERTY_PIPE, "|> ", KC_C, KC_V)
+COMB(QWERTY_ESC_R, KC_ESC, GUI_K, ALT_L)
+COMB(QWERTY_ESC_L, KC_ESC, ALT_S, GUI_D)
 
 // Combos that will work in either base layer
 SUBS(EEX_TAG, "<%=  %>" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT), KC_COMM, KC_DOT)
 
 // "Slow combos" with both hand chords
-COMB(COLEMAK_ESC, KC_ESC, CTL_A, CTL_O)
-COMB(QWERTY_ESC, KC_ESC, CTL_A, CTL_SCLN)
 COMB(COMBO_CAPS_WORD, CW_TOGG, KC_Z, KC_SLSH)
