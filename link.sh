@@ -17,3 +17,6 @@ ln -sfn ${cur_dir}/cospad \
 
 ln -sfn ${cur_dir}/egret \
         ${qmk_dir}/keyboards/egret
+
+ln -sfn ${cur_dir}/re_gret \
+        ${qmk_dir}/keyboards/re_gret

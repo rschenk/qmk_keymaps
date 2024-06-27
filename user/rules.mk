@@ -9,6 +9,12 @@ ifdef USE_RMS36_LAYOUT
 	INTROSPECTION_KEYMAP_C = rms36.c
 endif
 
+ifdef USE_RMS34_LAYOUT
+	# Fix after QMK Breaking Changes 2022 August 27: https://github.com/qmk/qmk_firmware/pull/17559/files
+	INTROSPECTION_KEYMAP_C = rms34.c
+endif
+
+
 COMBO_ENABLE = yes
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 CAPS_WORD_ENABLE = yes

@@ -4,6 +4,7 @@
 #include "quantum.h"
 
 #include "rms36.h"
+#include "rms34.h"
 #include "features/achordion.h"
 
 /* Home row mods for Qwerty layer */

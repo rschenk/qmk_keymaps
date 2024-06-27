@@ -35,8 +35,10 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_achordion(keycode, record)) { return false; }
 
-#ifdef USE_RMS36_LAYOUT
+#if defined(USE_RMS36_LAYOUT)
   return process_record_rms36(keycode, record);
+#elif defined(USE_RMS34_LAYOUT)
+  return process_record_rms34(keycode, record);
 #else
   return process_record_keymap(keycode, record);
 #endif
@@ -75,8 +77,10 @@ __attribute__((weak)) uint16_t achordion_timeout_keymap(uint16_t tap_hold_keycod
 }
 
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-#ifdef USE_RMS36_LAYOUT
+#if defined(USE_RMS36_LAYOUT)
   return achordion_timeout_rms36(tap_hold_keycode);
+#elif defined(USE_RMS34_LAYOUT)
+  return achordion_timeout_rms34(tap_hold_keycode);
 #else
   return achordion_timeout_keymap(tap_hold_keycode);
 #endif
